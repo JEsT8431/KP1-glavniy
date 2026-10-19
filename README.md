@@ -178,6 +178,7 @@ int main()
     return 0;
 }
 ```
+<img width="1596" height="572" alt="image" src="https://github.com/user-attachments/assets/6f3bd27b-d7dd-494b-92ea-b9f4f0f27ffd" />
 
 ### Тестирование программы
 
