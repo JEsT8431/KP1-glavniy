@@ -71,7 +71,6 @@ $$
 #include <locale.h>
 #include <math.h>
 
-// Функция для вычисления мощности Q по заданному X
 double get_q(double x)
 {
     if (x < 100) return 2.0 * x + 10;
@@ -84,26 +83,25 @@ int main()
     setlocale(LC_ALL, "RUS");
 
     double x;
-    double q0 = 350.0;    // Целевое значение из задания
-    double smax = 1500.0; // Максимальное отклонение из задания
+    double q0 = 350.0;    
+    double smax = 1500.0; 
     
-    double Q[1000];       // Массив для хранения значений Q (для медианы)
-    int n = 0;            // Счетчик измерений
+    double Q[1000];       
+    int n = 0;            
     
-    double s_current = 0; // Текущее накопленное отклонение
-    int alarm_found = 0;  // Флаг первого превышения
+    double s_current = 0; 
+    int alarm_found = 0;  
 
     printf("Введите показания датчика X (любой символ для выхода):\n");
 
-    // Ввод данных до ввода нечислового символа
+   
     while (scanf("%lf", &x) == 1) 
     {
-        Q[n] = get_q(x); // Считаем Q
-        s_current += fabs(Q[n] - q0); // Считаем накопленное отклонение S
+        Q[n] = get_q(x); 
+        s_current += fabs(Q[n] - q0); 
         
         printf("X=%.1f -> Q=%.1f ", x, Q[n]);
 
-        // Проверка на ПЕРВОЕ превышение Smax
         if (s_current > smax && alarm_found == 0) 
         {
             alarm_found = 1;
@@ -126,10 +124,9 @@ int main()
         return 0;
     }
 
-    // --- Статистика ---
     double sum = 0, min_q = Q[0], max_q = Q[0];
 
-    // 1. Сумма, мин, макс
+
     for (int i = 0; i < n; i++) 
     {
         sum += Q[i];
@@ -138,7 +135,6 @@ int main()
     }
     double mean = sum / n;
 
-    // 2. Дисперсия и СКО (Выборочная дисперсия)
     double var = 0;
     for (int i = 0; i < n; i++) 
     {
@@ -147,7 +143,6 @@ int main()
     var = (n > 1) ? var / (n - 1) : 0; 
     double std = sqrt(var);
 
-    // 3. Медиана (сортировка пузырьком)
     for (int i = 0; i < n - 1; i++) 
     {
         for (int j = 0; j < n - 1 - i; j++) 
@@ -165,7 +160,6 @@ int main()
     if (n % 2 != 0) med = Q[n / 2];
     else med = (Q[n / 2 - 1] + Q[n / 2]) / 2.0;
 
-    // Вывод результатов
     printf("\n--- Статистика ---\n");
     printf("Среднее:             %.2f\n", mean);
     printf("Медиана:             %.2f\n", med);
