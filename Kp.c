@@ -15,21 +15,21 @@ int main()
     setlocale(LC_ALL, "RUS");
 
     double x;
-    double q0 = 350.0;    // Целевое значение
-    double smax = 1500.0; // Максимальное отклонение
+    double q0 = 350.0;    
+    double smax = 1500.0; 
 
-    double Q[1000];       // Массив для хранения всех значений Q
-    int n = 0;            // Счетчик измерений
+    double Q[1000];       
+    int n = 0;            
 
-    double s_current = 0; // Текущее накопленное отклонение
-    int alarm_found = 0;  // Флаг первого превышения
+    double s_current = 0; 
+    int alarm_found = 0;  
 
     printf("Введите показания датчика X (любой символ для выхода):\n");
 
     while (scanf("%lf", &x) == 1)
     {
-        Q[n] = get_q(x); // Считаем Q и сохраняем в массив
-        s_current += fabs(Q[n] - q0); // Сразу считаем S
+        Q[n] = get_q(x); 
+        s_current += fabs(Q[n] - q0); 
 
         printf("X=%.1f -> Q=%.1f ", x, Q[n]);
 
@@ -71,7 +71,7 @@ int main()
     {
         var += (Q[i] - mean) * (Q[i] - mean);
     }
-    var = (n > 1) ? var / (n - 1) : 0; // Выборочная дисперсия
+    var = (n > 1) ? var / (n - 1) : 0; 
     double std = sqrt(var);
 
     for (int i = 0; i < n - 1; i++)
@@ -90,11 +90,11 @@ int main()
     double med;
     if (n % 2 != 0)
     {
-        med = Q[n / 2]; // Нечетное количество
+        med = Q[n / 2]; 
     }
     else
     {
-        med = (Q[n / 2 - 1] + Q[n / 2]) / 2.0; // Четное
+        med = (Q[n / 2 - 1] + Q[n / 2]) / 2.0; 
     }
 
     printf("\n--- Статистика ---\n");
